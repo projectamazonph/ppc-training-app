@@ -1,61 +1,42 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import { type ReactNode, type HTMLAttributes } from "react";
 
-export const EASE = [0.16, 1, 0.3, 1] as const;
-export const DURATION = 0.4;
-
-// Fade-up reveal using CSS visibility — always visible, animates on view entry
+// CSS-only fade-up — content visible immediately, gentle animation on load
+// No Framer Motion SSR opacity:0 — no blank page risk
 export function FadeUp({
   children,
   delay = 0,
   className,
   ...props
-}: Omit<HTMLMotionProps<"div">, "initial" | "whileInView" | "viewport" | "transition"> & {
-  delay?: number;
-}) {
-  const prefersReduced = useReducedMotion();
+}: { children: ReactNode; delay?: number; className?: string } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <motion.div
-      initial={prefersReduced ? false : { opacity: 0, y: 16 }}
-      whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: DURATION, delay, ease: EASE }}
+    <div
       className={className}
+      style={{
+        animation: `fade-in-up 0.5s ease-out both`,
+        animationDelay: `${delay}s`,
+      }}
       {...props}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
-
-export const staggerItem = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: DURATION, ease: EASE } },
-};
 
 export function Stagger({
   children,
   className,
   staggerDelay = 0.08,
   ...props
-}: Omit<HTMLMotionProps<"div">, "initial" | "whileInView" | "variants" | "viewport" | "transition"> & {
-  staggerDelay?: number;
-}) {
-  const prefersReduced = useReducedMotion();
+}: { children: ReactNode; className?: string; staggerDelay?: number } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <motion.div
-      variants={prefersReduced ? undefined : {
-        hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
-      }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
-      className={className}
-      {...props}
-    >
+    <div className={className} {...props}>
       {children}
-    </motion.div>
+    </div>
   );
 }
+
+export const staggerItem = {};
+export const DURATION = 0.4;
+export const EASE = [0.16, 1, 0.3, 1] as const;

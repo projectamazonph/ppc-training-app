@@ -297,8 +297,8 @@
 /* Smooth section transitions */
 @keyframes fade-in-up {
   from {
-    opacity: 0;
-    transform: translateY(8px);
+    opacity: 0.9;
+    transform: translateY(6px);
   }
   to {
     opacity: 1;

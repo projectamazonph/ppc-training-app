@@ -190,7 +190,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-[100dvh] flex flex-col bg-background">
       {/* ═══ Top bar ═══ */}
-      <header className="sticky top-0 z-40 h-14 border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-40 h-14 border-b border-border/40 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/50">
         <div className="h-full flex items-center justify-between px-3 sm:px-5 gap-2">
           {/* Left: hamburger + brand */}
           <div className="flex items-center gap-2 min-w-0">
@@ -320,20 +320,20 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      {/* ═══ Footer (hidden on very small screens) ═══ */}
-      <footer className="hidden sm:block mt-auto border-t border-border/60 bg-muted/20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground text-center sm:text-left">
+      {/* ═══ Footer (hidden on small screens) ═══ */}
+      <footer className="hidden sm:block mt-auto border-t border-border/30 bg-muted/10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground/80 text-center sm:text-left">
           <p className="min-w-0 max-w-full">
-            <span className="font-medium text-foreground/80 truncate">
+            <span className="font-medium text-foreground/70 truncate">
               {programOverview.title}
             </span>
-            <span className="mx-1.5 hidden sm:inline text-border">·</span>
-            <span className="block sm:inline sm:mx-2 text-muted-foreground/70">
-              v{programOverview.version} · {programOverview.duration}
+            <span className="mx-1.5 hidden sm:inline text-border/50">·</span>
+            <span className="block sm:inline sm:mx-2 text-muted-foreground/60">
+              v{programOverview.version} - {programOverview.duration}
             </span>
           </p>
-          <p className="flex items-center gap-1.5 shrink-0 text-muted-foreground/60">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500" />
+          <p className="flex items-center gap-1.5 shrink-0 text-muted-foreground/50">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Student Workbook
           </p>
         </div>

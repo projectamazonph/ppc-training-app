@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard } from "@/components/shared/section-shell";
 import {
   UserCircle,
   Mail,

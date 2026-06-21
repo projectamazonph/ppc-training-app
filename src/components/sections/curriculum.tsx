@@ -3,6 +3,7 @@
 import { useAppStore } from "@/lib/store";
 import { phases, type Module, type ModuleSection } from "@/lib/course-data";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard, getPhaseColors } from "@/components/shared/section-shell";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -76,7 +77,7 @@ const phaseColorMap: Record<number, { gradient: string; accent: string; ring: st
   },
 };
 
-function getPhaseColors(num: number) {
+function getLocalPhaseColors(num: number) {
   return phaseColorMap[num] ?? phaseColorMap[1];
 }
 
@@ -119,7 +120,7 @@ export function CurriculumSection() {
       {/* Phase sections */}
       <div className="space-y-10 sm:space-y-12">
         {phases.map((phase) => {
-          const colors = getPhaseColors(phase.number);
+          const colors = getLocalPhaseColors(phase.number);
           return (
             <section key={phase.id} className="space-y-4 sm:space-y-5">
               {/* ── Phase header banner ── */}
@@ -306,7 +307,7 @@ function ModuleView({
   const moduleIdx = phase.modules.findIndex((m) => m.id === module.id);
   const setActiveModule = useAppStore((s) => s.setActiveModule);
 
-  const colors = getPhaseColors(phase.number);
+  const colors = getLocalPhaseColors(phase.number);
 
   const getNext = () => {
     if (moduleIdx < phase.modules.length - 1) {

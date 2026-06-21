@@ -33,6 +33,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard } from "@/components/shared/section-shell";
 import {
   School,
   Plus,

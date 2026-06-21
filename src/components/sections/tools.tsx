@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard } from "@/components/shared/section-shell";
 import { formulas } from "@/lib/course-data";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";

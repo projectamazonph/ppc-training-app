@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard, getPhaseColors } from "@/components/shared/section-shell";
 import {
   PenLine,
   CheckCircle2,
@@ -30,42 +31,14 @@ import {
   Lightbulb,
 } from "lucide-react";
 
-// ─── Phase color maps ────────────────────────────────────────────────────────
+// ─── Phase color maps (via shared tokens) ────────────────────────────────────
+// getPhaseColors(n) returns: gradient, accent, accentBg, badge, ring, etc.
 
-const phaseGradients: Record<number, string> = {
-  1: "from-violet-500 to-purple-600",
-  2: "from-blue-500 to-cyan-600",
-  3: "from-amber-500 to-orange-600",
-  4: "from-emerald-500 to-teal-600",
-};
-
-const phaseAccentText: Record<number, string> = {
-  1: "text-violet-600 dark:text-violet-400",
-  2: "text-blue-600 dark:text-blue-400",
-  3: "text-amber-600 dark:text-amber-400",
-  4: "text-emerald-600 dark:text-emerald-400",
-};
-
-const phaseAccentBg: Record<number, string> = {
-  1: "bg-violet-500/10 dark:bg-violet-500/15",
-  2: "bg-blue-500/10 dark:bg-blue-500/15",
-  3: "bg-amber-500/10 dark:bg-amber-500/15",
-  4: "bg-emerald-500/10 dark:bg-emerald-500/15",
-};
-
-const phaseBorder: Record<number, string> = {
-  1: "border-violet-200 dark:border-violet-800",
-  2: "border-blue-200 dark:border-blue-800",
-  3: "border-amber-200 dark:border-amber-800",
-  4: "border-emerald-200 dark:border-emerald-800",
-};
-
-const phaseRing: Record<number, string> = {
-  1: "ring-violet-500/30",
-  2: "ring-blue-500/30",
-  3: "ring-amber-500/30",
-  4: "ring-emerald-500/30",
-};
+function phaseGradient(n: number) { return getPhaseColors(n).gradient; }
+function phaseAccentText(n: number) { return getPhaseColors(n).accent; }
+function phaseAccentBg(n: number) { return getPhaseColors(n).accentBg; }
+function phaseBorderClass(n: number) { return getPhaseColors(n).ring; }
+function phaseRing(n: number) { return getPhaseColors(n).ring; }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

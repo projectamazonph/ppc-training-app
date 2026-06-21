@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard } from "@/components/shared/section-shell";
 import { cn } from "@/lib/utils";
 import {
   Trophy,

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Sidebar } from "./sidebar";
 import { useAppStore, useProgressStats } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import {
   Menu,
   Moon,
@@ -10,10 +11,10 @@ import {
   RotateCcw,
   LogOut,
   User as UserIcon,
-  BookOpen,
-  Target,
   Search,
   Bell,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,45 +36,94 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
 import { programOverview } from "@/lib/course-data";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
-const sectionLabels: Record<string, { title: string; subtitle: string }> = {
-  dashboard: { title: "Dashboard", subtitle: "Your training overview & progress" },
-  curriculum: { title: "Curriculum", subtitle: "8–12 weeks · 4 phases · 10 modules" },
-  exercises: { title: "Exercises", subtitle: "Practice & submit your answers" },
-  quizzes: { title: "Quizzes", subtitle: "Phase checkpoints — auto-graded" },
-  tools: { title: "Tools", subtitle: "Calculators & analyzers" },
-  reference: { title: "Reference", subtitle: "Glossary · formulas · checklists" },
-  capstone: { title: "Capstone", subtitle: "Final project deliverables" },
-  students: { title: "Student Management", subtitle: "Admin · full CRUD on all students" },
-  myprofile: { title: "My Profile", subtitle: "Your progress, submissions, and activity" },
-  mystudents: { title: "My Students", subtitle: "Instructor · view and grade your students" },
-  cohorts: { title: "Cohorts", subtitle: "Training cohorts and enrollments" },
-  audit: { title: "Audit Log", subtitle: "Admin · all recorded actions" },
-  downloads: { title: "Downloads", subtitle: "Templates, cheat sheets & reference materials" },
+// ─── Section metadata ─────────────────────────────────────────
+const sectionLabels: Record<
+  string,
+  { title: string; subtitle: string; icon: React.ElementType }
+> = {
+  dashboard: {
+    title: "Dashboard",
+    subtitle: "Training overview & progress",
+    icon: Search,
+  },
+  curriculum: {
+    title: "Curriculum",
+    subtitle: "4 phases · 10 modules",
+    icon: Search,
+  },
+  exercises: {
+    title: "Exercises",
+    subtitle: "Practice & submit answers",
+    icon: Search,
+  },
+  quizzes: {
+    title: "Quizzes",
+    subtitle: "Auto-graded checkpoints",
+    icon: Search,
+  },
+  tools: {
+    title: "Tools",
+    subtitle: "Calculators & analyzers",
+    icon: Search,
+  },
+  reference: {
+    title: "Reference",
+    subtitle: "Glossary · formulas",
+    icon: Search,
+  },
+  capstone: {
+    title: "Capstone",
+    subtitle: "Final project deliverables",
+    icon: Search,
+  },
+  students: {
+    title: "Students",
+    subtitle: "Admin · full CRUD",
+    icon: Search,
+  },
+  myprofile: {
+    title: "My Profile",
+    subtitle: "Progress & activity",
+    icon: UserIcon,
+  },
+  mystudents: {
+    title: "My Students",
+    subtitle: "Instructor · grading",
+    icon: Search,
+  },
+  cohorts: {
+    title: "Cohorts",
+    subtitle: "Training cohorts",
+    icon: Search,
+  },
+  audit: {
+    title: "Audit Log",
+    subtitle: "Admin actions",
+    icon: Search,
+  },
+  downloads: {
+    title: "Downloads",
+    subtitle: "Templates & sheets",
+    icon: Search,
+  },
 };
 
-export function AppShell({ children }: { children: React.ReactNode }) {
-  // Lazy-initialize theme from localStorage (avoids setState-in-effect lint)
+export function AppShell({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window === "undefined") return "light";
-    const stored = localStorage.getItem("ppc-theme");
-    return stored === "dark" ? "dark" : "light";
+    return localStorage.getItem("ppc-theme") === "dark" ? "dark" : "light";
   });
-  const [mounted, setMounted] = useState(() => typeof window !== "undefined");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchFocused, setSearchFocused] = useState(false);
+  const [mobileSidebarCollapsed, setMobileSidebarCollapsed] = useState(true);
   const activeSection = useAppStore((s) => s.activeSection);
   const resetProgress = useAppStore((s) => s.resetProgress);
   const user = useAppStore((s) => s.user);
   const logout = useAppStore((s) => s.logout);
-  const stats = useProgressStats();
   const { toast } = useToast();
 
-  // Apply theme class to <html> when it changes
   useEffect(() => {
     if (typeof window === "undefined") return;
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -91,7 +141,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     resetProgress();
     toast({
       title: "Progress reset",
-      description: "All your saved answers, quiz results, and checklist items have been cleared.",
+      description:
+        "All your saved answers, quiz results, and checklist items have been cleared.",
     });
   };
 
@@ -104,240 +155,108 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     });
   };
 
-  // Compute initials for avatar
-  const userInitials = user?.name
-    ?.split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase() ?? "?";
+  const userInitials =
+    user?.name
+      ?.split(" ")
+      .map((p) => p[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() ?? "?";
 
   const roleColor =
     user?.role === "admin"
       ? "from-rose-500 to-red-600"
       : user?.role === "instructor"
-      ? "from-violet-500 to-purple-600"
-      : user?.role === "guest"
-      ? "from-stone-400 to-stone-600"
-      : "from-blue-500 to-indigo-600";
+        ? "from-violet-500 to-purple-600"
+        : user?.role === "guest"
+          ? "from-stone-400 to-stone-600"
+          : "from-blue-500 to-indigo-600";
 
   const meta = sectionLabels[activeSection] ?? sectionLabels.dashboard;
-  // Compute overall progress percentage (simple blend)
-  const overall =
-    Math.min(100,
-      Math.round(
-        ((stats.exercisesAttempted / 11) * 25 +
-          (stats.quizzesTaken / 4) * 30 +
-          (stats.capstoneDone / 5) * 30 +
-          (stats.checklistDone / 9) * 15)
-      )
-    );
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* ═══════════════════════════════════════════════════════════
-          Top bar
-          ═══════════════════════════════════════════════════════════ */}
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="flex h-14 items-center gap-3 px-4 lg:px-6">
-          {/* Mobile sidebar trigger */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden -ml-1 shrink-0 h-9 w-9"
-            onClick={() => setMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="h-[18px] w-[18px]" />
-          </Button>
-
-          {/* Page title + subtitle */}
-          <div className="flex-1 min-w-0">
-            <h2 className="text-[15px] font-semibold tracking-tight truncate leading-tight text-foreground">
+    <div className="min-h-[100dvh] flex flex-col bg-background">
+      {/* ═══ Top bar ═══ */}
+      <header className="sticky top-0 z-40 h-14 border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+        <div className="h-full flex items-center justify-between px-3 sm:px-5 gap-2">
+          {/* Left: hamburger + brand */}
+          <div className="flex items-center gap-2 min-w-0">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+              aria-label="Toggle menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+            <a
+              href="/"
+              className="flex items-center gap-2 min-w-0 hover:opacity-80 transition-opacity"
+            >
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-sm">
+                <span className="text-xs font-bold">P</span>
+              </div>
+              <span className="hidden sm:inline text-sm font-semibold text-foreground truncate">
+                PPC Training
+              </span>
+            </a>
+            <ChevronRight className="hidden sm:block h-3.5 w-3.5 text-muted-foreground/40 shrink-0" />
+            <span className="hidden sm:inline text-sm text-muted-foreground truncate">
               {meta.title}
-            </h2>
-            <p className="text-[11px] text-muted-foreground/70 truncate leading-tight mt-0.5">
-              {meta.subtitle}
-            </p>
+            </span>
           </div>
 
-          {/* Right-side actions */}
+          {/* Right: actions */}
           <div className="flex items-center gap-1 shrink-0">
-            {/* Search trigger */}
-            <div
-              className={cn(
-                "hidden md:flex items-center gap-2 rounded-lg border px-2.5 py-1.5 transition-all",
-                searchFocused
-                  ? "bg-background border-blue-400/50 shadow-sm shadow-blue-500/10 w-52"
-                  : "bg-muted/40 border-transparent w-40"
-              )}
-            >
-              <Search className="h-3.5 w-3.5 text-muted-foreground/50 shrink-0" />
-              <input
-                type="text"
-                placeholder="Search…"
-                className="w-full bg-transparent text-xs text-foreground placeholder:text-muted-foreground/40 outline-none"
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-              />
-              <kbd className="hidden lg:inline-flex text-[9px] text-muted-foreground/40 bg-muted/60 rounded px-1 py-0.5 font-mono">
-                ⌘K
-              </kbd>
-            </div>
-
-            {/* Progress badge */}
-            <div className="hidden md:flex items-center">
-              <Badge
-                variant="outline"
-                className="bg-blue-500/5 border-blue-500/15 text-blue-600 dark:text-blue-400 px-2.5 py-1 font-medium"
-              >
-                <span className="text-[10px] uppercase tracking-wider mr-1.5 opacity-70">
-                  Progress
-                </span>
-                <span className="text-[11px] font-semibold tabular-nums">
-                  {mounted ? overall : 0}%
-                </span>
-              </Badge>
-            </div>
-
-            {/* Notification bell */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-9 w-9 relative text-muted-foreground"
-              aria-label="Notifications"
-            >
-              <Bell className="h-[18px] w-[18px]" />
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-blue-500 ring-2 ring-background" />
-            </Button>
-
             {/* Theme toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={toggleTheme}
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
               aria-label="Toggle theme"
-              className="h-9 w-9 text-muted-foreground"
             >
-              {mounted && theme === "dark" ? (
-                <Sun className="h-[18px] w-[18px]" />
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
               ) : (
-                <Moon className="h-[18px] w-[18px]" />
+                <Moon className="h-4 w-4" />
               )}
-            </Button>
-
-            {/* Reset */}
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Reset progress"
-                  className="h-9 w-9 text-muted-foreground"
-                >
-                  <RotateCcw className="h-4 w-4" />
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Reset all progress?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This will permanently clear all your saved exercise answers, quiz results,
-                    capstone checklist, and weekly checklist items. This action cannot be undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleReset}
-                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                  >
-                    Reset everything
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-
-            {/* Divider */}
-            <div className="hidden sm:block h-6 w-px bg-border mx-1" />
+            </button>
 
             {/* User menu */}
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button
-                    className="flex items-center gap-2.5 rounded-full hover:bg-muted/50 transition-colors shrink-0 py-1 pl-1 pr-2.5"
-                    aria-label="User menu"
-                  >
+                  <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-accent transition-colors">
                     <div
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br text-white text-[10px] font-semibold shadow-sm ring-2 ring-background shrink-0",
+                        "flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br text-white text-[10px] font-semibold shadow-sm",
                         roleColor
                       )}
                     >
                       {userInitials}
                     </div>
-                    <div className="hidden md:block text-left min-w-0">
-                      <p className="text-[12px] font-medium leading-tight max-w-[110px] lg:max-w-[140px] truncate text-foreground">
-                        {user.name}
-                      </p>
-                      <p className="text-[10px] text-muted-foreground capitalize leading-tight">
-                        {user.role}
-                      </p>
-                    </div>
+                    <span className="hidden sm:inline text-sm font-medium truncate max-w-[120px]">
+                      {user.name.split(" ")[0]}
+                    </span>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 p-1.5">
-                  <div className="px-2.5 py-2">
-                    <p className="text-[13px] font-semibold leading-none text-foreground">
-                      {user.name}
-                    </p>
-                    <p className="text-[11px] text-muted-foreground mt-1">{user.email}</p>
-                    {user.cohort && (
-                      <p className="text-[10px] text-blue-600 dark:text-blue-400 mt-1.5 font-medium">
-                        Cohort: {user.cohort}
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col gap-0.5">
+                      <p className="text-sm font-medium">{user.name}</p>
+                      <p className="text-xs text-muted-foreground font-normal">
+                        {user.email}
                       </p>
-                    )}
-                  </div>
+                    </div>
+                  </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-xs text-muted-foreground cursor-default pointer-events-none py-1.5">
-                    <UserIcon className="h-3.5 w-3.5 mr-2.5 text-muted-foreground/60" />
-                    Role:{" "}
-                    <span className="font-medium text-foreground capitalize ml-1">
-                      {user.role}
-                    </span>
-                    {user.status && user.status !== "ACTIVE" && (
-                      <Badge variant="secondary" className="ml-auto text-[9px] capitalize">
-                        {user.status.toLowerCase()}
-                      </Badge>
-                    )}
+                    Role: {user.role}
                   </DropdownMenuItem>
-                  {user.currentPhase && (
-                    <DropdownMenuItem className="text-xs text-muted-foreground cursor-default pointer-events-none py-1.5">
-                      <BookOpen className="h-3.5 w-3.5 mr-2.5 text-muted-foreground/60" />
-                      Phase:{" "}
-                      <span className="font-medium text-foreground ml-1">
-                        {user.currentPhase} / 4
-                      </span>
-                    </DropdownMenuItem>
-                  )}
-                  {user.targetAcos && (
-                    <DropdownMenuItem className="text-xs text-muted-foreground cursor-default pointer-events-none py-1.5">
-                      <Target className="h-3.5 w-3.5 mr-2.5 text-muted-foreground/60" />
-                      Target ACoS:{" "}
-                      <span className="font-medium text-foreground ml-1">
-                        {user.targetAcos}%
-                      </span>
-                    </DropdownMenuItem>
-                  )}
                   <DropdownMenuItem className="text-xs text-muted-foreground cursor-default pointer-events-none py-1.5">
-                    <span className="mr-2.5">Signed in:</span>
-                    <span className="font-medium text-foreground ml-1">
-                      {new Date(user.loggedInAt).toLocaleDateString(undefined, {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
+                    Signed in:{" "}
+                    {new Date(user.loggedInAt).toLocaleDateString(undefined, {
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -354,39 +273,31 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* ═══════════════════════════════════════════════════════════
-          Main split layout
-          ═══════════════════════════════════════════════════════════ */}
+      {/* ═══ Main split layout ═══ */}
       <div className="flex flex-1 min-h-0">
         {/* Desktop sidebar */}
         <aside className="hidden lg:block shrink-0 border-r border-border/60">
-          <div className="sticky top-14 h-[calc(100vh-3.5rem)]">
+          <div className="sticky top-14 h-[calc(100dvh-3.5rem)]">
             <Sidebar />
           </div>
         </aside>
 
         {/* Content */}
         <main className="flex-1 min-w-0 overflow-x-hidden">
-          <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-6 lg:px-10 lg:py-8">
-            <div key={activeSection} className="animate-fade-in-up">
-              {children}
-            </div>
+          <div className="mx-auto max-w-6xl px-3 py-4 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
+            {children}
           </div>
         </main>
       </div>
 
-      {/* ═══════════════════════════════════════════════════════════
-          Mobile overlay sidebar
-          ═══════════════════════════════════════════════════════════ */}
+      {/* ═══ Mobile overlay sidebar ═══ */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
-          {/* Sidebar panel */}
-          <div className="absolute left-0 top-0 h-full w-[85vw] max-w-72 shadow-2xl shadow-black/20 animate-slide-in-left">
+          <div className="absolute left-0 top-0 h-full w-[80vw] max-w-72 shadow-2xl shadow-black/20">
             <Sidebar
               mobile
               onClose={() => setMobileMenuOpen(false)}
@@ -396,18 +307,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      {/* ═══════════════════════════════════════════════════════════
-          Footer
-          ═══════════════════════════════════════════════════════════ */}
-      <footer className="mt-auto border-t border-border/60 bg-muted/20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-10 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground text-center sm:text-left">
+      {/* ═══ Footer (hidden on very small screens) ═══ */}
+      <footer className="hidden sm:block mt-auto border-t border-border/60 bg-muted/20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground text-center sm:text-left">
           <p className="min-w-0 max-w-full">
             <span className="font-medium text-foreground/80 truncate">
               {programOverview.title}
             </span>
             <span className="mx-1.5 hidden sm:inline text-border">·</span>
             <span className="block sm:inline sm:mx-2 text-muted-foreground/70">
-              Version {programOverview.version} · {programOverview.duration}
+              v{programOverview.version} · {programOverview.duration}
             </span>
           </p>
           <p className="flex items-center gap-1.5 shrink-0 text-muted-foreground/60">

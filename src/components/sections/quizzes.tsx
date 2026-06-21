@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { useAppStore } from "@/lib/store";
 import { phases, type Quiz } from "@/lib/course-data";
 import { BrandButton } from "@/components/shared/buttons";
+import { PageShell, ContentCard } from "@/components/shared/section-shell";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import {

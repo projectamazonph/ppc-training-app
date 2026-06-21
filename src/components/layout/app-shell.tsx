@@ -178,12 +178,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const roleColor =
     user?.role === "admin"
-      ? "from-rose-500 to-red-600"
+      ? "bg-rose-600"
       : user?.role === "instructor"
-        ? "from-violet-500 to-purple-600"
+        ? "bg-violet-600"
         : user?.role === "guest"
-          ? "from-stone-400 to-stone-600"
-          : "from-blue-500 to-indigo-600";
+          ? "bg-stone-500"
+          : "bg-blue-600";
 
   const meta = sectionLabels[activeSection] ?? sectionLabels.dashboard;
 
@@ -205,7 +205,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               href="/"
               className="flex items-center gap-2 min-w-0 hover:opacity-80 transition-opacity"
             >
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-sm">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm">
                 <span className="text-xs font-bold">P</span>
               </div>
               <span className="hidden sm:inline text-sm font-semibold text-foreground truncate">
@@ -240,7 +240,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-accent transition-colors">
                     <div
                       className={cn(
-                        "flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br text-white text-[10px] font-semibold shadow-sm",
+                        "flex h-7 w-7 items-center justify-center rounded-full text-white text-[10px] font-semibold shadow-sm",
                         roleColor
                       )}
                     >

@@ -17,10 +17,10 @@ import {
 import { Stagger, staggerItem } from "@/components/sections/landing/motion";
 
 const statsCards = [
-  { key: "exercises", label: "Exercises", icon: PenLine, total: 11, accent: "from-blue-500 to-blue-600" },
-  { key: "quizzes", label: "Quizzes", icon: GraduationCap, total: 4, accent: "from-rose-500 to-pink-600" },
-  { key: "capstone", label: "Capstone", icon: Trophy, total: 5, accent: "from-emerald-500 to-teal-600" },
-  { key: "checklist", label: "Checklist", icon: ListChecks, total: 9, accent: "from-violet-500 to-purple-600" },
+  { key: "exercises", label: "Exercises", icon: PenLine, total: 11, accent: "bg-blue-500" },
+  { key: "quizzes", label: "Quizzes", icon: GraduationCap, total: 4, accent: "bg-rose-500" },
+  { key: "capstone", label: "Capstone", icon: Trophy, total: 5, accent: "bg-emerald-500" },
+  { key: "checklist", label: "Checklist", icon: ListChecks, total: 9, accent: "bg-violet-500" },
 ] as const;
 
 function MiniRing({ pct, color, size = 36 }: { pct: number; color: string; size?: number }) {
@@ -68,7 +68,7 @@ export function DashboardSection() {
     <PageShell>
       {/* Welcome header */}
       <ContentCard className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700" />
+        <div className="absolute inset-0 bg-blue-600" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)]" />
         <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-5 sm:p-6">
           <div className="flex-1 min-w-0">
@@ -102,7 +102,7 @@ export function DashboardSection() {
                   <p className="text-[11px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider truncate">{card.label}</p>
                   <p className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">{count}<span className="text-sm font-normal text-muted-foreground ml-0.5">/{card.total}</span></p>
                 </div>
-                <div className={cn("flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm", card.accent)}>
+                <div className={cn("flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl text-white", card.accent)}>
                   <card.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
               </div>
@@ -152,7 +152,7 @@ export function DashboardSection() {
               <button key={phase.id} onClick={() => setActiveModule(phase.modules[0].id, phase.id)}
                 className="group w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border border-border/40 bg-card hover:shadow-sm hover:border-border/60 transition-all duration-200 text-left"
               >
-                <div className={cn("flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm", colors.gradient)}>
+                <div className={cn("flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl text-white", colors.gradient)}>
                   <span className="font-bold text-sm sm:text-base">{phase.number}</span>
                 </div>
                 <div className="flex-1 min-w-0">

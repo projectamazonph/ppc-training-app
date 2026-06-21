@@ -16,15 +16,15 @@ const brandButtonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-600/20 hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:shadow-primary-600/30",
+          "bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm",
         accent:
-          "bg-gradient-to-r from-accent-500 to-accent-600 text-white shadow-md shadow-accent-500/20 hover:from-accent-600 hover:to-accent-700 hover:shadow-lg hover:shadow-accent-500/30",
+          "bg-accent-500 text-white hover:bg-accent-600 active:bg-accent-700 shadow-sm",
         success:
-          "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/20 hover:from-emerald-600 hover:to-teal-700",
+          "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 shadow-sm",
         danger:
-          "bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-md shadow-rose-500/20 hover:from-rose-600 hover:to-red-700",
+          "bg-rose-600 text-white hover:bg-rose-700 active:bg-rose-800 shadow-sm",
         outline:
-          "border-2 border-primary-200 dark:border-primary-800 bg-transparent text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:border-primary-300 dark:hover:border-primary-700",
+          "border border-primary-200 dark:border-primary-800 bg-transparent text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/30",
         ghost:
           "bg-transparent text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/30",
       },

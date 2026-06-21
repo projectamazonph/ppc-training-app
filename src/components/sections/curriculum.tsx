@@ -79,7 +79,7 @@ export function CurriculumSection() {
               {/* ── Phase header banner ── */}
               <div
                 className={cn(
-                  "relative overflow-hidden rounded-2xl bg-gradient-to-br p-6 sm:p-8 text-white shadow-lg",
+                  "relative overflow-hidden rounded-2xl text-white shadow-lg p-6 sm:p-8",
                   colors.gradient
                 )}
               >
@@ -300,7 +300,7 @@ function ModuleView({
       {/* ── Module header ── */}
       <div
         className={cn(
-          "relative overflow-hidden rounded-2xl bg-gradient-to-br p-6 sm:p-8 lg:p-10 text-white shadow-lg",
+          "relative overflow-hidden rounded-2xl text-white shadow-lg p-6 sm:p-8 lg:p-10",
           colors.gradient
         )}
       >
@@ -342,7 +342,7 @@ function ModuleView({
 
       {/* ── Exercises callout ── */}
       {module.exercises && module.exercises.length > 0 && (
-        <div className="relative overflow-hidden rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-gradient-to-br from-blue-50 via-indigo-50/50 to-sky-50 dark:from-blue-950/40 dark:via-indigo-950/20 dark:to-sky-950/30 p-6 sm:p-8">
+        <div className="relative overflow-hidden rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/80 dark:bg-blue-950/30 p-6 sm:p-8">
           <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-blue-200/30 dark:bg-blue-800/20 blur-2xl" />
 
           <div className="relative">
@@ -563,7 +563,7 @@ function ModuleSectionView({
                   <div
                     className={cn(
                       "relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold shadow-sm ring-4 ring-background",
-                      `bg-gradient-to-br ${colors.gradient} text-white`
+                      `${colors.gradient} text-white`
                     )}
                   >
                     {i + 1}

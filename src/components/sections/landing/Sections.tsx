@@ -39,7 +39,7 @@ export function Hero({ onSignup, onGuest, Preview }: {
             <FadeUp delay={0.2}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-foreground">
                 Master{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
+                <span className="text-blue-600 dark:text-blue-400">
                   Amazon PPC
                 </span>
                 <br />
@@ -161,7 +161,7 @@ export function HowItWorks() {
             return (
               <FadeUp key={step.title} delay={i * 0.1}>
                 <div className="relative rounded-2xl border border-foreground/5 bg-card p-5 sm:p-6 text-center">
-                  <div className="flex items-center justify-center mx-auto h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md mb-4">
+                  <div className="flex items-center justify-center mx-auto h-12 w-12 rounded-2xl bg-blue-600 text-white shadow-md mb-4">
                     <Icon className="h-6 w-6" />
                   </div>
                   <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-[10px] font-bold absolute -top-2 -right-2 sm:-top-3 sm:-right-3">
@@ -202,7 +202,7 @@ export function Testimonials() {
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
               <div className="mt-4 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-[10px] font-bold">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white text-[10px] font-bold">
                   {t.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                 </div>
                 <div>
@@ -223,7 +223,7 @@ export function CTA({ onSignup, onGuest }: { onSignup: () => void; onGuest: () =
     <section className="relative px-4 sm:px-6 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <FadeUp>
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 p-8 sm:p-12 lg:p-16 text-center">
+          <div className="relative overflow-hidden rounded-3xl bg-blue-600 p-8 sm:p-12 lg:p-16 text-center">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.12),transparent_60%)]" />
             <div className="relative">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">

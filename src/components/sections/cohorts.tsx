@@ -859,7 +859,7 @@ function CohortStudentsDialog({
                 className="flex items-center gap-3 rounded-xl border border-border/50 bg-card p-3.5 transition-colors hover:border-border hover:bg-muted/20"
               >
                 {/* Avatar */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-white text-xs font-bold shadow-sm">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-600 text-white text-xs font-bold shadow-sm">
                   {getInitials(e.student.name)}
                 </div>
 

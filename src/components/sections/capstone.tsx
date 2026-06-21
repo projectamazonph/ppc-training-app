@@ -76,7 +76,7 @@ export function CapstoneSection() {
       {/* ── Page Header ── */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-md shadow-violet-500/20">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-white shadow-sm">
             <Rocket className="h-4 w-4 text-white" />
           </div>
           <span className="text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">
@@ -93,7 +93,7 @@ export function CapstoneSection() {
       </div>
 
       {/* ── Hero / Mission Brief ── */}
-      <section className="relative overflow-hidden rounded-2xl border border-violet-200/50 dark:border-violet-900/30 bg-gradient-to-br from-violet-50 via-white to-purple-50 dark:from-violet-950/20 dark:via-background dark:to-purple-950/10">
+      <section className="relative overflow-hidden rounded-2xl border border-violet-200/50 dark:border-violet-900/30 bg-violet-50/80 dark:bg-violet-950/20">
         {/* Decorative elements */}
         <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-gradient-to-br from-violet-400/20 to-purple-500/10 blur-3xl" />
         <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-gradient-to-br from-blue-400/15 to-indigo-500/10 blur-3xl" />
@@ -101,7 +101,7 @@ export function CapstoneSection() {
 
         <div className="relative p-6 sm:p-8 lg:p-10">
           <div className="flex items-start gap-4">
-            <div className="hidden sm:flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-violet-500/25">
+            <div className="hidden sm:flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-lg">
               <Target className="h-7 w-7 text-white" />
             </div>
             <div className="space-y-4 flex-1">
@@ -164,7 +164,7 @@ export function CapstoneSection() {
                 className={cn(
                   "flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-lg transition-all duration-500",
                   allComplete
-                    ? "bg-gradient-to-br from-emerald-500 to-teal-600 shadow-emerald-500/25"
+                    ? "bg-emerald-600 shadow-sm"
                     : "bg-gradient-to-br from-violet-500 to-purple-600 shadow-violet-500/25"
                 )}
               >
@@ -235,7 +235,7 @@ export function CapstoneSection() {
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/25">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500 shadow-sm">
                     <Star className="h-5 w-5 text-white" />
                   </div>
                   <div>
@@ -304,7 +304,7 @@ export function CapstoneSection() {
                         className={cn(
                           "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-lg transition-all duration-300",
                           isDone
-                            ? "bg-gradient-to-br from-emerald-500 to-teal-600 shadow-emerald-500/20"
+                            ? "bg-emerald-600 shadow-sm"
                             : `bg-gradient-to-br ${accentGradient} shadow-lg`
                         )}
                       >
@@ -445,7 +445,7 @@ export function CapstoneSection() {
           <Card className="border-border/50 overflow-hidden">
             <CardHeader className="pb-3">
               <CardTitle className="text-base sm:text-lg flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-md shadow-violet-500/20">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-white shadow-sm">
                   <Target className="h-4 w-4 text-white" />
                 </div>
                 Phase 4 Goals

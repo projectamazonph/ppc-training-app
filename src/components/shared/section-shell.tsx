@@ -52,7 +52,7 @@ export function StatCard({
         {Icon && (
           <div
             className={cn(
-              "flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm",
+              "flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl text-white shadow-sm",
               accent || "from-primary-500 to-primary-600"
             )}
           >
@@ -150,7 +150,7 @@ export const PHASE_COLORS: Record<
   }
 > = {
   1: {
-    gradient: "from-blue-600 to-indigo-600",
+    gradient: "bg-blue-600",
     accent: "text-blue-600 dark:text-blue-400",
     accentBg: "bg-blue-500/10 dark:bg-blue-500/15",
     light: "bg-blue-50 dark:bg-blue-950/30",
@@ -160,7 +160,7 @@ export const PHASE_COLORS: Record<
     ring: "ring-blue-200 dark:ring-blue-800",
   },
   2: {
-    gradient: "from-violet-600 to-purple-600",
+    gradient: "bg-violet-600",
     accent: "text-violet-600 dark:text-violet-400",
     accentBg: "bg-violet-500/10 dark:bg-violet-500/15",
     light: "bg-violet-50 dark:bg-violet-950/30",
@@ -170,7 +170,7 @@ export const PHASE_COLORS: Record<
     ring: "ring-violet-200 dark:ring-violet-800",
   },
   3: {
-    gradient: "from-amber-500 to-orange-500",
+    gradient: "bg-amber-500",
     accent: "text-amber-600 dark:text-amber-400",
     accentBg: "bg-amber-500/10 dark:bg-amber-500/15",
     light: "bg-amber-50 dark:bg-amber-950/30",
@@ -180,7 +180,7 @@ export const PHASE_COLORS: Record<
     ring: "ring-amber-200 dark:ring-amber-800",
   },
   4: {
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "bg-emerald-500",
     accent: "text-emerald-600 dark:text-emerald-400",
     accentBg: "bg-emerald-500/10 dark:bg-emerald-500/15",
     light: "bg-emerald-50 dark:bg-emerald-950/30",
@@ -190,7 +190,7 @@ export const PHASE_COLORS: Record<
     ring: "ring-emerald-200 dark:ring-emerald-800",
   },
   5: {
-    gradient: "from-rose-500 to-pink-500",
+    gradient: "bg-rose-500",
     accent: "text-rose-600 dark:text-rose-400",
     accentBg: "bg-rose-500/10 dark:bg-rose-500/15",
     light: "bg-rose-50 dark:bg-rose-950/30",

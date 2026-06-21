@@ -15,6 +15,19 @@ import {
   Bell,
   ChevronLeft,
   ChevronRight,
+  LayoutDashboard,
+  BookOpen,
+  PenLine,
+  GraduationCap,
+  Calculator,
+  BookMarked,
+  Trophy,
+  Users,
+  UserCircle,
+  ClipboardList,
+  School,
+  ScrollText,
+  Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,67 +60,67 @@ const sectionLabels: Record<
   dashboard: {
     title: "Dashboard",
     subtitle: "Training overview & progress",
-    icon: Search,
+    icon: LayoutDashboard,
   },
   curriculum: {
     title: "Curriculum",
     subtitle: "4 phases · 10 modules",
-    icon: Search,
+    icon: BookOpen,
   },
   exercises: {
     title: "Exercises",
     subtitle: "Practice & submit answers",
-    icon: Search,
+    icon: PenLine,
   },
   quizzes: {
     title: "Quizzes",
     subtitle: "Auto-graded checkpoints",
-    icon: Search,
+    icon: GraduationCap,
   },
   tools: {
     title: "Tools",
     subtitle: "Calculators & analyzers",
-    icon: Search,
+    icon: Calculator,
   },
   reference: {
     title: "Reference",
     subtitle: "Glossary · formulas",
-    icon: Search,
+    icon: BookMarked,
   },
   capstone: {
     title: "Capstone",
     subtitle: "Final project deliverables",
-    icon: Search,
+    icon: Trophy,
   },
   students: {
     title: "Students",
     subtitle: "Admin · full CRUD",
-    icon: Search,
+    icon: Users,
   },
   myprofile: {
     title: "My Profile",
     subtitle: "Progress & activity",
-    icon: UserIcon,
+    icon: UserCircle,
   },
   mystudents: {
     title: "My Students",
     subtitle: "Instructor · grading",
-    icon: Search,
+    icon: ClipboardList,
   },
   cohorts: {
     title: "Cohorts",
     subtitle: "Training cohorts",
-    icon: Search,
+    icon: School,
   },
   audit: {
     title: "Audit Log",
     subtitle: "Admin actions",
-    icon: Search,
+    icon: ScrollText,
   },
   downloads: {
     title: "Downloads",
     subtitle: "Templates & sheets",
-    icon: Search,
+    icon: Download,
   },
 };
 

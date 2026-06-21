@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useScroll, useTransform } from "framer-motion";
 import {
-  Sparkles, ArrowRight, Zap, Heart, CheckCircle2, Play, Quote,
+  Sparkles, ArrowRight, Zap, Heart, CheckCircle2, Play,
   Star, ChevronRight, Quote as QuoteIcon,
 } from "lucide-react";
 import { BrandButton, GlassButton } from "@/components/shared/buttons";

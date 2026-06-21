@@ -34,53 +34,6 @@ function findActiveModule(moduleId: string | null) {
 }
 
 /** Map phase numbers to distinct gradient/color tokens */
-const phaseColorMap: Record<number, { gradient: string; accent: string; ring: string; light: string; badge: string; iconBg: string }> = {
-  1: {
-    gradient: "from-blue-600 via-blue-700 to-indigo-700",
-    accent: "text-blue-600 dark:text-blue-400",
-    ring: "ring-blue-200 dark:ring-blue-800",
-    light: "bg-blue-50 dark:bg-blue-950/30",
-    badge: "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 border-blue-200 dark:border-blue-800",
-    iconBg: "bg-blue-100 dark:bg-blue-900/50",
-  },
-  2: {
-    gradient: "from-violet-600 via-purple-700 to-indigo-700",
-    accent: "text-violet-600 dark:text-violet-400",
-    ring: "ring-violet-200 dark:ring-violet-800",
-    light: "bg-violet-50 dark:bg-violet-950/30",
-    badge: "bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300 border-violet-200 dark:border-violet-800",
-    iconBg: "bg-violet-100 dark:bg-violet-900/50",
-  },
-  3: {
-    gradient: "from-amber-500 via-orange-600 to-red-600",
-    accent: "text-amber-600 dark:text-amber-400",
-    ring: "ring-amber-200 dark:ring-amber-800",
-    light: "bg-amber-50 dark:bg-amber-950/30",
-    badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300 border-amber-200 dark:border-amber-800",
-    iconBg: "bg-amber-100 dark:bg-amber-900/50",
-  },
-  4: {
-    gradient: "from-emerald-500 via-teal-600 to-cyan-700",
-    accent: "text-emerald-600 dark:text-emerald-400",
-    ring: "ring-emerald-200 dark:ring-emerald-800",
-    light: "bg-emerald-50 dark:bg-emerald-950/30",
-    badge: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
-    iconBg: "bg-emerald-100 dark:bg-emerald-900/50",
-  },
-  5: {
-    gradient: "from-rose-500 via-pink-600 to-fuchsia-600",
-    accent: "text-rose-600 dark:text-rose-400",
-    ring: "ring-rose-200 dark:ring-rose-800",
-    light: "bg-rose-50 dark:bg-rose-950/30",
-    badge: "bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300 border-rose-200 dark:border-rose-800",
-    iconBg: "bg-rose-100 dark:bg-rose-900/50",
-  },
-};
-
-function getLocalPhaseColors(num: number) {
-  return phaseColorMap[num] ?? phaseColorMap[1];
-}
-
 // ─── Main Export ─────────────────────────────────────────────────────────────
 
 export function CurriculumSection() {
@@ -120,7 +73,7 @@ export function CurriculumSection() {
       {/* Phase sections */}
       <div className="space-y-10 sm:space-y-12">
         {phases.map((phase) => {
-          const colors = getLocalPhaseColors(phase.number);
+          const colors = getPhaseColors(phase.number);
           return (
             <section key={phase.id} className="space-y-4 sm:space-y-5">
               {/* ── Phase header banner ── */}
@@ -307,7 +260,7 @@ function ModuleView({
   const moduleIdx = phase.modules.findIndex((m) => m.id === module.id);
   const setActiveModule = useAppStore((s) => s.setActiveModule);
 
-  const colors = getLocalPhaseColors(phase.number);
+  const colors = getPhaseColors(phase.number);
 
   const getNext = () => {
     if (moduleIdx < phase.modules.length - 1) {

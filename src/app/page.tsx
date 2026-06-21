@@ -16,48 +16,28 @@ import { MyStudentsSection } from "@/components/sections/my-students";
 import { CohortsSection } from "@/components/sections/cohorts";
 import { AuditLogSection } from "@/components/sections/audit";
 import { DownloadsSection } from "@/components/sections/downloads";
-import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const activeSection = useAppStore((s) => s.activeSection);
   const user = useAppStore((s) => s.user);
 
+  if (!user) return <LandingPage />;
+
   return (
-    <AnimatePresence mode="wait">
-      {!user ? (
-        <motion.div
-          key="landing"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.4 }}
-        >
-          <LandingPage />
-        </motion.div>
-      ) : (
-        <motion.div
-          key="app"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <AppShell>
-            {activeSection === "dashboard" && <DashboardSection />}
-            {activeSection === "curriculum" && <CurriculumSection />}
-            {activeSection === "exercises" && <ExercisesSection />}
-            {activeSection === "quizzes" && <QuizzesSection />}
-            {activeSection === "tools" && <ToolsSection />}
-            {activeSection === "reference" && <ReferenceSection />}
-            {activeSection === "capstone" && <CapstoneSection />}
-            {activeSection === "students" && <StudentsSection />}
-            {activeSection === "myprofile" && <MyProfileSection />}
-            {activeSection === "mystudents" && <MyStudentsSection />}
-            {activeSection === "cohorts" && <CohortsSection />}
-            {activeSection === "audit" && <AuditLogSection />}
-            {activeSection === "downloads" && <DownloadsSection />}
-          </AppShell>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <AppShell>
+      {activeSection === "dashboard" && <DashboardSection />}
+      {activeSection === "curriculum" && <CurriculumSection />}
+      {activeSection === "exercises" && <ExercisesSection />}
+      {activeSection === "quizzes" && <QuizzesSection />}
+      {activeSection === "tools" && <ToolsSection />}
+      {activeSection === "reference" && <ReferenceSection />}
+      {activeSection === "capstone" && <CapstoneSection />}
+      {activeSection === "students" && <StudentsSection />}
+      {activeSection === "myprofile" && <MyProfileSection />}
+      {activeSection === "mystudents" && <MyStudentsSection />}
+      {activeSection === "cohorts" && <CohortsSection />}
+      {activeSection === "audit" && <AuditLogSection />}
+      {activeSection === "downloads" && <DownloadsSection />}
+    </AppShell>
   );
 }

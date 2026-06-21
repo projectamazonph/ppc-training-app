@@ -2,11 +2,10 @@
 
 import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 
-// ── Shared easing & durations ────────────────────────────────
 export const EASE = [0.16, 1, 0.3, 1] as const;
 export const DURATION = 0.4;
 
-// ── Fade-up reveal (scroll-triggered) ────────────────────────
+// Fade-up reveal using CSS visibility — always visible, animates on view entry
 export function FadeUp({
   children,
   delay = 0,
@@ -30,7 +29,6 @@ export function FadeUp({
   );
 }
 
-// ── Stagger container ────────────────────────────────────────
 export const staggerItem = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: DURATION, ease: EASE } },

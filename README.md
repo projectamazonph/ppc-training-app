@@ -67,3 +67,8 @@ NEXTAUTH_URL="http://localhost:3000"
 ## License
 
 MIT &copy; Amazon PPC Manager Training Program
+
+
+## 📊 Codegraph
+
+See [codegraphs/ppc-training-app.md](./codegraphs/ppc-training-app.md) for the full dependency graph.

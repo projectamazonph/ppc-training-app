@@ -1,3 +1,11 @@
+> ⚠️ **LEGACY / SUPERSEDED** — This repository is no longer the canonical version.
+>
+> 👉 **Use the actively maintained project instead:**
+> - **AMPH Academy v2** → https://github.com/projectamazonph/amph-v2 (flagship training platform)
+> - **Amazon PPC Student Wiki** → https://github.com/projectamazonph/Amazon-PPC-Student-Wiki (knowledge base)
+>
+> This repo is kept online for reference only and will be archived once v2 ships. No new features or fixes here.
+
 # Amazon PPC Manager Training Program
 
 An interactive student workbook and training platform for mastering Amazon PPC — built with Next.js 16, Tailwind v4, and shadcn/ui.
